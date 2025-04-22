@@ -1,0 +1,24 @@
+<div class="role-management">
+    <h2 class="text">{{ permissionId && permissionId !== '0' ? 'تعديل مجموعة' : 'اضافة مجموعة' }}</h2>
+    <form [formGroup]="PermisstionData" (ngSubmit)="onSubmit()">
+        <div class="form-group w-50">
+            <label for="reg-fn">اسم المجموعة</label>
+            <input class="form-control my-2" name="roleName" formControlName="roleName" type="string" id="reg-email" fdprocessedid="qzw08f">
+            <ng-container *ngIf="getRoleName.touched">
+                <div *ngIf="getRoleName.hasError('required')" id="emailHelp" class="form-text text-danger">
+                    اسم المجموعة مطلوب
+                </div>
+                <div *ngIf="getRoleName.hasError('minlength')" id="emailHelp" class="form-text text-danger">
+                    اسم المجموعة يجب أن يكون على الأقل 3 حروف
+                </div>
+            </ng-container>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn submit"> 
+            {{ permissionId && permissionId !== '0' ? 'تحديث المجموعة' : 'اضافة المجموعة' }}
+            </button>
+            <button type="button" class="btn cancel" (click)="onCancel()">عودة الى الخلف</button>
+        </div>
+    </form>
+</div>
+  

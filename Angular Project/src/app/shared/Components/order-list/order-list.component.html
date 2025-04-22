@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="header d-flex flex-column flex-md-row gap-3">
+      <div class="input-group mb-3 w-100" dir="ltr">
+        <input #searchInput type="text" class="form-control text-end" placeholder="بحث" aria-describedby="basic-addon2">
+        <button type="button" class="btn btn-outline-secondary" (click)="onSearch(searchInput.value)">
+          <i class="bi bi-search"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" (click)="setSearchType('status')">حالة الطلب</a></li>
+          <li><a class="dropdown-item" (click)="setSearchType('delegateName')">اسم المندوب</a></li>
+          <li><a class="dropdown-item" (click)="setSearchType('clientName')">اسم العميل</a></li>
+        </ul>
+      </div>
+      <div class="input-group mb-3 w-100" dir="ltr">
+        <input type="date" class="form-control" [(ngModel)]="startDate" placeholder="من">
+        <input type="date" class="form-control" [(ngModel)]="endDate" placeholder="إلى">
+        <button type="button" class="btn btn-outline-secondary" (click)="filterByDateRange()">
+            <i class="bi bi-filter"></i>
+        </button>
+    </div>
+      <!-- <div class="input-group mb-3" style="width: 100%;" dir="ltr">
+        <input dir="rtl" type="number" class="form-control text-end" placeholder="9" min="1" max="20" step="5" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">ريكورد</span>
+      </div> -->
+    </div>
+  
+    <div class="table-responsive text-center" #orderTable>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>بيانات العميل</th>
+            <th>المحافظة</th>
+            <th>المدينة</th>
+            <th>اجمالي التكلفة</th>
+            <th>الحالة</th>
+            <th>المندوب</th>
+            <th>الإعدادات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of filteredOrders">
+            <td>{{ order.orderDate | date }}</td>
+            <td>{{ order.clientName}} {{order.clientPhoneNumber1}}</td>
+            <td>{{ order.stateName }}</td> 
+            <td>{{ order.cityName }}</td>
+            <td>{{ order.totalCost }}</td>
+            <td>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit') && (role === 'الموظفين' || role === 'المناديب')" class="btn btn-link" (click)="openModal(order,'status')"><i class="bi bi-pencil-square"></i></button>
+              <span>{{ order.orderStatus }}</span>
+            </td>
+            <td>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit') && role === 'الموظفين'" class="btn btn-link" (click)="openModal(order,'delivery')"><i class="bi bi-pencil-square"></i></button>
+              <span>{{ order.deliveryId }}</span>
+            </td>
+            <td class="d-flex flex-row gap-1">
+              <button *ngIf="checkUserRole('Permissions.Orders.View')" class="btn btn-secondary btn-sm" [routerLink]="['/shared/order-report', order.id]"><i class="bi bi-printer"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Edit')" class="btn btn-info btn-sm" [routerLink]="['/merchant/order', order.id]"><i class="bi bi-pencil"></i></button>
+              <button *ngIf="checkUserRole('Permissions.Orders.Delete')" class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- <div class="input-group mb-3 justify-content-end w-100" dir="ltr">
+      <span class="input-group-text" id="basic-addon2">
+        <button class="btn add-group-button">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button class="btn">4</button>
+        <button class="btn">></button>
+      </span>
+    </div> -->
+
+    <div class="modal fade" id="UpdateStatus" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header justify-content-between" dir="rtl">
+            <div class="h">
+              <h5 class="modal-title" id="orderModalLabel">تعديل حالة الطلب</h5>
+            </div>
+            <div class="btnmodal">
+              <button type="button" class="btn-close" (click)="closeModel('status')"></button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="statusForm">
+              <div class="mb-3">
+                <label for="orderStatus" class="form-label">حالة الطلب</label>
+                <select id="orderStatus" class="form-select" formControlName="status">
+                  <option *ngFor="let status of orderStatus" [value]="status">{{ status }}</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModel('status')">إغلاق</button>
+            <button type="button" class="btn btn-primary" (click)="updateOrder('status')">حفظ التعديلات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="UpdateDelivery" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header justify-content-between" dir="rtl">
+            <div class="h">
+              <h5 class="modal-title" id="orderModalLabel">تعديل المندوب</h5>
+            </div>
+            <div class="btnmodal">
+              <button type="button" class="btn-close" (click)="closeModel('delivery')"></button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="deliveryForm">
+              <div class="mb-3">
+                <label for="delegateName" class="form-label">اسم المندوب</label>
+                <select id="delegateName" class="form-select" formControlName="delegateName">
+                  <option *ngFor="let delegate of delegates" [value]="delegate.id">{{ delegate.name }}</option>
+                </select>                
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModel('delivery')">إغلاق</button>
+            <button type="button" class="btn btn-primary" (click)="updateOrder('delivery')">حفظ التعديلات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  

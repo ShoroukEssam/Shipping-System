@@ -1,0 +1,29 @@
+.adjust{
+    width: 79vw;
+      margin: 5px auto;
+      min-height: 100vh;
+  }
+  
+.adjust {
+    direction: rtl;
+}
+.form-label {
+    font-weight: bold;
+}
+.table {
+    margin-top: 20px;
+}
+.sidebar-divider {
+    border-top: 1px solid #bbb;
+    margin: 10px 0;
+}
+.submit{
+    color: black;
+    border: 1px solid #898787;
+    cursor: pointer;
+}
+.cancel{
+    color: black;
+    border: 1px solid #D83520;
+    cursor: pointer;
+}

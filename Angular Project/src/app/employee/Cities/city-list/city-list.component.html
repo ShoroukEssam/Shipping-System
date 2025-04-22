@@ -1,0 +1,105 @@
+<div class="container">
+  <span style="font-size: 20px; font-weight: 500; margin: 40px 20px"
+    >المدن</span
+  >
+  <div class="header">
+    <div class="input-group mb-3" dir="ltr">
+      <input
+        #searchInput
+        type="text"
+        class="form-control text-end"
+        style="height: 45px"
+        placeholder="بحث"
+        aria-describedby="basic-addon2"
+        [(ngModel)]="searchterm"
+      />
+      <span class="input-group-text" id="basic-addon2">
+        <i class="bi bi-search"></i>
+      </span>
+    </div>
+    <!-- <div class="input-group mb-3" style="width: 20vw" dir="ltr">
+      <span class="input-group-text" id="basic-addon2">
+        <input
+          id="pagenumber"
+          type="number"
+          [(ngModel)]="recordLimit"
+          min="1"
+          class="form-control"
+        />
+        ريكورد
+      </span>
+    </div> -->
+    <div class="input-group mb-3" style="width: 20vw" dir="ltr">
+      <span class="input-group-text" id="basic-addon2">
+        <a (click)="addCity()" class="btn add-group-button"
+          ><i class="bi bi-plus-lg"></i> أضف مدينه</a
+        >
+      </span>
+    </div>
+  </div>
+
+  <div class="table-responsive text-center" *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>اسم المدينه</th>
+          <th>الحالة</th>
+          <th>الإجراء</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr
+          *ngFor="
+            let city of cityData
+              | citysearch : searchterm
+              | pagination : recordLimit
+          "
+        >
+          <td>{{ city.name }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckChecked"
+                [checked]="city.status"
+                (change)="changeStatus(city)"
+              />
+            </div>
+          </td>
+          <td>
+            <a
+              class="btn text-primary"
+              routerLink="/employee/city/{{ stateId }}/{{ city.id }}">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a class="btn text-danger" (click)="deleteCity(city.id)">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="input-group mb-3 justify-content-end"
+    style="width: 20vw"
+    dir="ltr"
+  >
+    <!-- <span class="input-group-text" id="basic-addon2">
+      <button class="btn add-group-button">1</button>
+      <button class="btn">2</button>
+      <button class="btn">3</button>
+      <button class="btn">4</button>
+      <button class="btn">></button>
+    </span> -->
+  </div>
+</div>
+
+
+<div class="text-center w-100" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>

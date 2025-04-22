@@ -1,0 +1,180 @@
+<div class="container mt-3 adjust">
+    <div class="bg-light rounded mb-4 row p-2 justify-content-center align-items-center">
+        <div class="col col-sm-12 col-md-5 mb-3">
+            <h2 class="text-center">{{isEditMode ? 'تعديل طلب' : 'اضافه طلب'}}</h2>
+        </div>
+    </div>
+
+    <div class="bg-light rounded my-3 row p-2 justify-content-center align-items-center">
+        <div class="col d-flex flex-row gap-1 justify-content-center">
+            <div class="d-flex align-items-center">
+                <label for="type" class="form-label" style="font-size: 25px;">النوع: </label>
+            </div>
+            <div class="form" style="width: 30vw;">
+                <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="d-flex flex-row gap-3">
+                    <select class="form-select" id="type" formControlName="type">
+                        <option value="" selected>اختر نوع الطلب</option>
+                        <option *ngFor="let type of orderTypes" [value]="type">{{ type }}</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row bg-light rounded my-4">
+        <div class="container">
+            <form class="row g-3 p-4" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="clientName" class="form-label">اسم العميل</label>
+                    <input type="text" id="clientName" class="form-control" formControlName="clientName">
+                    <div *ngIf="orderForm.get('clientName')?.invalid && (orderForm.get('clientName')?.dirty || orderForm.get('clientName')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('clientName')?.errors?.['required']">يجب ادخال الاسم</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="clientPhoneNumber1" class="form-label">رقم العميل</label>
+                    <input type="text" id="clientPhoneNumber1" class="form-control" formControlName="clientPhoneNumber1">
+                    <div *ngIf="orderForm.get('clientPhoneNumber1')?.invalid && (orderForm.get('clientPhoneNumber1')?.dirty || orderForm.get('clientPhoneNumber1')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('clientPhoneNumber1')?.errors?.['required']">يجب ادخال رقم الهاتف</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="clientPhoneNumber2" class="form-label">رقم بديل</label>
+                    <input type="text" id="clientPhoneNumber2" class="form-control" formControlName="clientPhoneNumber2">
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="clientEmail" class="form-label">البريد الالكتروني</label>
+                    <input type="email" id="clientEmail" class="form-control" formControlName="clientEmail">
+                    <div *ngIf="orderForm.get('clientEmail')?.invalid && (orderForm.get('clientEmail')?.dirty || orderForm.get('clientEmail')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('clientEmail')?.errors?.['required']">يجب ادخال البريد الالكتروني</div>
+                        <div *ngIf="orderForm.get('clientEmail')?.errors?.['email']">ادخل بريد الكتروني صحيح</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="stateName" class="form-label">المحافظة</label>
+                    <select id="stateName" class="form-select" formControlName="stateName" (change)="onStateChange($event)">
+                        <option value="" selected>اختر المحافظة</option>
+                        <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+                    </select>
+                    <div *ngIf="orderForm.get('stateName')?.invalid && (orderForm.get('stateName')?.dirty || orderForm.get('stateName')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('stateName')?.errors?.['required']">يجب ادخال المحافظة</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="cityName" class="form-label">المدينة</label>
+                    <select id="cityName" class="form-select" formControlName="cityName">
+                        <option value="" selected>اختر المدينة</option>
+                        <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+                    </select>
+                    <div *ngIf="orderForm.get('cityName')?.invalid && (orderForm.get('cityName')?.dirty || orderForm.get('cityName')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('cityName')?.errors?.['required']">يجب ادخال المدينة</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="branchName" class="form-label">الفرع</label>
+                    <select id="branchName" class="form-select" formControlName="branchName">
+                        <option value="" selected>اختر الفرع</option>
+                        <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+                    </select>
+                    <div *ngIf="orderForm.get('branchName')?.invalid && (orderForm.get('branchName')?.dirty || orderForm.get('branchName')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('branchName')?.errors?.['required']">يجب ادخال الفرع</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="streetName" class="form-label">الشارع و القرية</label>
+                    <input type="text" id="streetName" class="form-control" formControlName="streetName">
+                    <div *ngIf="orderForm.get('streetName')?.invalid && (orderForm.get('streetName')?.dirty || orderForm.get('streetName')?.touched)" class="text-danger">
+                        <div *ngIf="orderForm.get('streetName')?.errors?.['required']">يجب ادخال العنوان</div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3 m-auto">
+                    <input type="checkbox" id="isVillage" class="form-check-input mx-2" formControlName="isVillage">
+                    <label for="isVillage" class="form-label">التوصيل لقرية</label>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="shippingType" class="form-label">نوع الشحن</label>
+                    <select id="shippingType" class="form-select" formControlName="shippingType">
+                        <option value="" selected>اختر نوع الشحن</option>
+                        <option *ngFor="let shippingType  of shippingTypes" [value]="shippingType ">{{ shippingType  }}</option>
+                    </select>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3">
+                    <label for="paymentType" class="form-label">نوع الدفع</label>
+                    <select id="paymentType" class="form-select" formControlName="paymentType">
+                        <option value="" selected>اختر نوع وسيلة الدفع</option>
+                        <option *ngFor="let paymentType  of paymentTypes" [value]="paymentType ">{{ paymentType  }}</option>
+                    </select>
+                </div>
+
+                <div class="col col-sm-12 col-md-4 mb-3" style="display: none;">
+                    <label for="shippingCost" class="form-label">تكلفة الشحن</label>
+                    <input type="number" id="shippingCost" class="form-control" formControlName="shippingCost">
+                </div>
+
+                <div class="col-12 mb-3">
+                    <hr class="sidebar-divider bg-black">
+                    <a id="add-product-btn" class="btn btn-outline-success mb-3" (click)="addProduct()">إضافة منتج</a>
+                    <div class="mt-3">
+                        <table class="table table-bordered text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th>اسم المنتج</th>
+                                    <th>الكمية</th>
+                                    <th>الوزن (جم)</th>
+                                    <th>حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="orderProducts">
+                                <tr *ngFor="let product of orderProducts.controls; let i = index" [formGroupName]="i">
+                                  <td>
+                                    <input type="text" class="form-control" formControlName="productName" placeholder="اسم المنتج">
+                                  </td>
+                                  <td>
+                                    <input type="number" class="form-control" formControlName="productQuantity" placeholder="الكمية">
+                                  </td>
+                                  <td>
+                                    <input type="number" class="form-control" formControlName="weight" placeholder="الوزن (جم)">
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-danger" (click)="removeProduct(i)">حذف</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="totalWeight" class="form-label">إجمالي الوزن (جم)</label>
+                    <input type="number" id="totalWeight" class="form-control" formControlName="totalWeight" readonly>
+                </div>
+
+                <div class="col-12">
+                    <label for="orderCost" class="form-label">تكلفة الطلب</label>
+                    <input type="number" id="orderCost" class="form-control" formControlName="orderCost">
+                </div>
+
+                <div class="col col-sm-12 col-md-12 mb-3">
+                    <label for="notes" class="form-label">ملاحظات</label>
+                    <input type="text" id="notes" class="form-control" formControlName="notes">
+                </div>
+
+                <div class="col-12 d-flex justify-content-end gap-3">
+                    <button type="submit" class="btn submit" [disabled]="orderForm.invalid">إرسال</button>
+                    <button type="button" class="btn cancel" (click)="navigateToDashboard()">عودة للوحة التحكم</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

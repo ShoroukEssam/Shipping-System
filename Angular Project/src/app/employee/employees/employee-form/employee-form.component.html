@@ -1,0 +1,98 @@
+<div class="role-management">
+    <h2 class="text">{{ employeeId && employeeId !== '0' ? 'تعديل موظف' : 'اضافه موظف' }}</h2>
+    <hr>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="row">
+        <div class="form-group input-container">
+          <label for="name">الإسم</label>
+          <input class="form-control my-2" name="name" formControlName="name" type="text" id="name">
+
+          <!-- ? Validation messages -->
+          <div *ngIf="form.get('name')?.errors && form.get('name')?.touched">
+            <p *ngIf="form.get('name')?.getError('required')" class="text-danger">يجب ادخال اسم الموظف</p>
+          </div>
+        </div>
+
+        <!-- *-------------------------------------------------------- -->
+
+        <div class="form-group input-container">
+          <label for="email">البريد الإلكتروني</label>
+          <input class="form-control my-2" name="email"  formControlName="email" type="email" id="email">
+
+          <!-- ? Validation messages -->
+          <div *ngIf="form.get('email')?.errors && form.get('email')?.touched">
+            <p *ngIf="form.get('email')?.getError('required')" class="text-danger">يجب ادخال البريد الإلكتروني</p>
+          </div>
+          <div *ngIf="form.get('email')?.errors && form.get('email')?.touched">
+            <p *ngIf="form.get('email')?.getError('email')" class="text-danger">يجب ادخال بريد إلكتروني صحيح</p>
+          </div>
+        </div>
+
+        <!-- *-------------------------------------------------------- -->
+
+        <!-- Update phone input type to text -->
+        <div class="form-group input-container">
+          <label for="phone">رقم الهاتف</label>
+          <input class="form-control my-2" name="phone" formControlName="phone" type="text" id="phone">
+          <div *ngIf="form.get('phone')?.errors && form.get('phone')?.touched">
+            <p *ngIf="form.get('phone')?.getError('required')" class="text-danger">يجب ادخال رقم الهاتف</p>
+            <p *ngIf="form.get('phone')?.getError('pattern')" class="text-danger">ادخل رقم هاتف صحيح كالاتى : 01224479550</p>
+          </div>
+        </div>
+
+
+        <!-- *-------------------------------------------------------- -->
+      </div>
+  
+      <div class="row">
+        <div class="form-group input-container">
+          <label for="branch">الفرع</label>
+          <select class="form-control my-2" name="branch" formControlName="branchId" id="branch" (change)="onChangeBranch($event)">
+            <option *ngFor="let branch of BranchData" [value]="branch.id">{{ branch.name }}</option>
+          </select>
+          <div *ngIf="form.get('branchId')?.errors && form.get('branchId')?.touched">
+            <p *ngIf="form.get('branchId')?.getError('required')" class="text-danger">يجب اختيار فرع</p>
+          </div>
+  
+          <!-- *-------------------------------------------------------- -->
+
+        </div>
+        <div class="form-group input-container">
+          <label for="role">الصلاحية</label>
+          <input class="form-control my-2" name="role" formControlName="role"  type="text" id="role">
+
+          <!-- ? Validation messages -->
+          <div *ngIf="form.get('role')?.errors && form.get('role')?.touched">
+            <p *ngIf="form.get('role')?.getError('required')" class="text-danger">يجب ادخال صلاحية الموظف </p>
+          </div>
+        </div>
+
+        <!-- *-------------------------------------------------------- -->
+
+        <div class="form-group input-container" *ngIf="employeeId == '0'">
+          <label for="password">الرقم السري</label>
+          <input class="form-control my-2" name="password"  formControlName="password"  type="password" id="password">
+
+          <!-- ? Validation messages -->
+          <div *ngIf="form.get('password')?.errors && form.get('password')?.touched">
+            <p *ngIf="form.get('password')?.getError('required')" class="text-danger">يجب ادخال الرقم السري</p>
+            <p *ngIf="form.get('password')?.getError('minlength')" class="text-danger">يجب ان يكون الرقم السري على الأقل مكون من 8 ارقام/أحرف</p>
+          </div>
+        </div>
+
+        <!-- *-------------------------------------------------------- -->
+       
+        
+      </div>
+  
+      <div class="buttons">
+        <button type="submit" class="btn submit">
+          {{ employeeId && employeeId !== '0' ? 'تعديل بيانات الموظف ' : 'اضف الموظف' }}
+        </button>
+        <button type="button" class="btn cancel" routerLink="/employee/employee">
+          عودة الى القائمة
+        </button>
+      </div>
+    </form>
+  </div>
+  

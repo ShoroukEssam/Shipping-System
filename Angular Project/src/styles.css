@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family:"Janna", "Tajawal" }
+@font-face {
+    font-family: 'Janna';
+    src: url('./assets/fonts/alfont_com_Janna-LT-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Tajawal';
+    src: url('./assets/fonts/Tajawal-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  :root {
+    scroll-behavior: smooth;
+  }
+  :root {
+    --primary-color: #000000 ;
+    --primary2-color: rgba(27, 62, 82, 0.782);
+    --secondary-color: #000000;
+    --tertiary-color: #564d4d;
+    --accent-color: #780909;
+    --line-color:#131834;
+    --primary-font: 'Janna';
+    --secondary-font: 'Tajawal';
+  }
+  body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+  }
+  
+  a {
+    color: #4154f1;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #717ff5;
+    text-decoration: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--primary-font), sans-serif;
+  }
+  p,small,strong,span,input,button,a {
+    font-family: var(--secondary-font), sans-serif;
+  }
+  a{
+    text-decoration: none;
+    cursor: pointer;
+  }
+  small{
+    font-size: smaller;
+  }
+  
+  body::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  
+  body::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--primary2-color);
+  }
+  
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.submit:hover{
+  color: white;
+  background-color: #898787;
+}
+
+.cancel:hover{
+  color: #fff;
+  background-color: #D83520;
+}

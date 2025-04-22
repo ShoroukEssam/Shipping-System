@@ -1,0 +1,61 @@
+<div class="role-management">
+  <h2 class="text">
+    {{ cityId && cityId !== 0 ? "تعديل مدينه" : "اضافه مدينه" }}
+  </h2>
+  <form [formGroup]="cityData" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="form-group w-50">
+        <label for="reg-fn">اسم المدينه</label>
+        <input
+          class="form-control my-2"
+          name="roleName"
+          formControlName="roleName"
+          type="string"
+          id="reg-email"
+          fdprocessedid="qzw08f"
+        />
+      </div>
+      <!-- <div class="form-group w-50">
+        <label for="reg-fn">المحافطه</label>
+        <select class="form-control my-2" formControlName="governmentId">
+          المحافطه
+          <option *ngFor="let gov of GovernmentData" [value]="gov.id">
+            {{ gov.name }}
+          </option>
+        </select>
+      </div> -->
+    </div>
+    <div class="row">
+      <div class="form-group w-50">
+        <label for="reg-fn">تكلفه الشحن العادي</label>
+        <input
+          class="form-control my-2"
+          name="roleName"
+          formControlName="shippingPrice"
+          type="number"
+          id="reg-email"
+          fdprocessedid="qzw08f"
+        />
+      </div>
+      <div class="form-group w-50">
+        <label for="reg-fn">تكلفه الشحن pickup </label>
+        <input
+          class="form-control my-2"
+          name="roleName"
+          formControlName="pickUpPrice"
+          type="number"
+          id="reg-email"
+          fdprocessedid="qzw08f"
+        />
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn submit">
+        {{ cityId && cityId !== 0 ? "تعديل مدينه" : "اضف المدينه" }}
+      </button>
+      <button type="button" class="btn cancel" (click)="onCancel()">
+        عودة الى الخلف
+      </button>
+    </div>
+  </form>
+</div>

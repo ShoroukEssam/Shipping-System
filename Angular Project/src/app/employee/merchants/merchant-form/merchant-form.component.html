@@ -1,0 +1,135 @@
+<div class="container mt-5 adjust">
+  <div class="bg-light rounded my-4 row">
+    <h2 class="p-4 fw-bold text-center text-secondary">
+      {{ id == '0' ? 'اضافه تاجر' : 'تعديل تاجر' }}
+    </h2>
+  </div>
+
+  <div class="row bg-light rounded my-4">
+    <div class="container">
+      <form class="row g-3" [formGroup]="merchantForm" (ngSubmit)="onSubmit()">
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="name" class="form-label">الاسم</label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+          <div *ngIf="merchantForm.get('name')?.invalid && (merchantForm.get('name')?.dirty || merchantForm.get('name')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('name')?.errors?.['required']">يجب ادخال الاسم</div>
+          </div>
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="email" class="form-label">البريد الالكتروني</label>
+          <input type="email" id="email" class="form-control" formControlName="email">
+          <div *ngIf="merchantForm.get('email')?.invalid && (merchantForm.get('email')?.dirty || merchantForm.get('email')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('email')?.errors?.['required']">يجب ادخال البريد الالكتروني</div>
+            <div *ngIf="merchantForm.get('email')?.errors?.['pattern']">ادخل بريد الكتروني صحيح</div>
+          </div>
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="phone" class="form-label">رقم الهاتف</label>
+          <input type="text" id="phone" class="form-control" formControlName="phone">
+          <div *ngIf="merchantForm.get('phone')?.invalid && (merchantForm.get('phone')?.dirty || merchantForm.get('phone')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('phone')?.errors?.['required']">يجب ادخال رقم الهاتف</div>
+            <div *ngIf="merchantForm.get('phone')?.errors?.['pattern']">ادخل رقم هاتف صحيح كالاتى : 01224479550</div>
+          </div>
+        </div>
+
+        <div *ngIf="id == '0'" class="col col-sm-12 col-md-4 mb-3">
+          <label for="password" class="form-label">الرقم السري</label>
+          <input type="password" id="password" class="form-control" formControlName="password">
+          <div *ngIf="merchantForm.get('password')?.invalid && (merchantForm.get('password')?.dirty || merchantForm.get('password')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('password')?.errors?.['minlength']">ادخل ع الاقل 8احرف و ارقام</div>
+          </div>
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="government" class="form-label">المحافظة</label>
+          <select id="government" class="form-select" (ngModelChange)="onGovChange()" formControlName="government">
+            <option value="" selected>اختر محافظة</option>
+            <option *ngFor="let gov of governments; trackBy: trackByGov" [value]="serializeState(gov)">{{gov.name}}</option>
+          </select>
+          <div *ngIf="merchantForm.get('government')?.invalid && (merchantForm.get('government')?.dirty || merchantForm.get('government')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('government')?.errors?.['required']">يجب ادخال المحافظة</div>
+          </div>
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="city" class="form-label">المدينة</label>
+          <select id="city" class="form-select" formControlName="city" [disabled]="!merchantForm.get('government')?.value">
+            <option value="" selected>اختر مدينة</option>
+            <option *ngFor="let city of cities; trackBy: trackByCity" [value]="city.name">{{city.name}}</option>
+          </select>
+          <div *ngIf="merchantForm.get('city')?.invalid && (merchantForm.get('city')?.dirty || merchantForm.get('city')?.touched)" class="text-danger">
+            <div *ngIf="merchantForm.get('city')?.errors?.['required']">يجب ادخال المدينة</div>
+          </div>
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="branchName" class="form-label">الفرع</label>
+          <select id="branchName" class="form-select" formControlName="branchName">
+              <option value="" selected>اختر الفرع</option>
+              <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+          </select>
+          <div *ngIf="merchantForm.get('branchName')?.invalid && (merchantForm.get('branchName')?.dirty || merchantForm.get('branchName')?.touched)" class="text-danger">
+              <div *ngIf="merchantForm.get('branchName')?.errors?.['required']">يجب ادخال الفرع</div>
+          </div>
+      </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="pickUpSpecialCost" class="form-label">سعر pick up</label>
+          <input type="number" id="pickUpSpecialCost" class="form-control" formControlName="pickUpSpecialCost">
+        </div>
+
+        <div class="col col-sm-12 col-md-4 mb-3">
+          <label for="refusedOrderPercent" class="form-label">تحمل التاجر عند الرفض</label>
+          <input type="number" id="refusedOrderPercent" class="form-control" formControlName="refusedOrderPercent">
+        </div>
+
+        <div class="col-12 mb-3">
+          <hr class="sidebar-divider bg-black">
+          <a id="add-product-btn" class="btn btn-outline-success mb-3" (click)="addspecialCitiesPrices()">اضافة باقة خاصة</a>
+          <div class="mt-3">
+            <table class="table table-bordered text-center table-hover">
+              <thead>
+                <tr>
+                  <th>المحافظة</th>
+                  <th>المدينة</th>
+                  <th>سعر الشحن</th>
+                  <th>حذف</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="specialCitiesPrices">
+                <tr *ngFor="let price of specialCitiesPrices.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <select id="specialGovernment{{i}}" class="form-select" formControlName="government" (change)="onSpecialGovChange(i)">
+                      <option value="" selected>اختر المحافظة</option>
+                      <option *ngFor="let gov of governments; trackBy: trackByGov" [value]="serializeState(gov)">{{ gov.name }}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select id="specialCity{{i}}" class="form-select" formControlName="city">
+                      <option value="" selected>اختر المدينة</option>
+                      <option *ngFor="let city of specialCities[i]; trackBy: trackByCity" [value]="city.name">{{ city.name }}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" formControlName="price" placeholder="Enter Price">
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" (click)="removespecialCitiesPrices(i)">حذف</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="buttons">
+          <button type="submit" class="btn submit">
+            {{ id && id !== '0' ? 'تعديل تاجر' : 'اضافه تاجر' }}
+          </button>
+          <button type="button" class="btn cancel" [routerLink]="['/employee/merchant']">عودة إلى الخلف</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

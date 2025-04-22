@@ -1,0 +1,46 @@
+<div class="role-management" *ngIf="roleWithAllClaims">
+    <h2 class="text-end my-4">إدارة الصلاحيات - {{roleWithAllClaims.roleName}}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>الصلاحية</th>
+          <th>عرض</th>
+          <th>إضافة</th>
+          <th>تعديل</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let claimGroup of groupClaimsByArabicName()">
+          <tr>
+            <td>{{ claimGroup.arabicName }}</td>
+            <td>
+              <input type="checkbox" 
+                     [checked]="isClaimSelected(claimGroup.view)"
+                     (change)="onCheckboxChange(claimGroup.view.displayValue, $event)">
+            </td>
+            <td>
+              <input type="checkbox" 
+                     [checked]="isClaimSelected(claimGroup.create)"
+                     (change)="onCheckboxChange(claimGroup.create.displayValue, $event)">
+            </td>
+            <td>
+              <input type="checkbox" 
+                     [checked]="isClaimSelected(claimGroup.edit)"
+                     (change)="onCheckboxChange(claimGroup.edit.displayValue, $event)">
+            </td>
+            <td>
+              <input type="checkbox" 
+                     [checked]="isClaimSelected(claimGroup.delete)"
+                     (change)="onCheckboxChange(claimGroup.delete.displayValue, $event)">
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="buttons">
+      <button class="btn submit"(click)="saveChanges()">حفظ التعديلات</button>
+      <button type="button" class="btn cancel" (click)="cancelChanges()">إلغاء</button>
+    </div>
+  </div>
+  

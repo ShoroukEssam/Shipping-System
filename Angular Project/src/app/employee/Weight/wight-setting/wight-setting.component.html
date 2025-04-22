@@ -1,0 +1,47 @@
+<div class="weight-management">
+    <h2 class="text">اعدادات تكلفه الشحن الاضافيه بالنسه لوزن الشحنه </h2>
+    <form [formGroup]="weightSettingData" (ngSubmit)="onSubmit()">
+        <div class="d-flex flex-column flex-md-row gap-1">
+            <div class="form-group d-flex flex-row gap-2">
+                <div class="d-flex align-content-center align-items-center">
+                    <label for="standaredWeight">تكلفه الشحن الافتراضيه(بالجنيه) من 0 كجم الي وزن</label>
+                </div>
+                <div class="input d-flex flex-column gap-2">
+                    <input class="form-control my-2 w-10" name="standaredWeight" formControlName="standaredWeight" type="number" id="standaredWeight">
+                </div>
+            </div>
+            <div class="form-group d-flex flex-row gap-2">
+                <div class="d-flex align-content-center align-items-center">
+                    <label for="addition_Cost">وسعر كل كجم اضافي</label>
+                </div>
+                <div class="input d-flex flex-column gap-2">
+                    <input class="form-control my-2 w-10" name="addition_Cost" formControlName="addition_Cost" type="number" id="additionCost">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column mb-3">
+            <ng-container *ngIf="getStandaredWeight.touched">
+                <div *ngIf="getStandaredWeight.hasError('required')" id="emailHelp" class="form-text text-danger">
+                    الوزن الافتراضي مطلوب
+                </div>
+                <div *ngIf="getStandaredWeight.hasError('min')" id="emailHelp" class="form-text text-danger">
+                    الوزن الافتراضي يجب أن يكون على الأقل 1
+                </div>
+            </ng-container>
+            <ng-container *ngIf="getAdditionCost.touched">
+                <div *ngIf="getAdditionCost.hasError('required')" id="emailHelp" class="form-text text-danger">
+                    السعر الاضافي مطلوب
+                </div>
+                <div *ngIf="getAdditionCost.hasError('min')" id="emailHelp" class="form-text text-danger">
+                    السعر الاضافي يجب أن يكون على الأقل 10
+                </div>
+            </ng-container>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn submit" >
+                حفظ التعديلات
+            </button>
+            <button type="button" class="btn cancel" (click)="onCancel()">عودة الى الخلف</button>
+        </div>
+    </form>
+</div>

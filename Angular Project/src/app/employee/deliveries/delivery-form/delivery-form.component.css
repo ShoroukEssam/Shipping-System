@@ -1,0 +1,108 @@
+.role-management {
+  width: 79vw;
+  margin: 5px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  min-height: 100vh;
+}
+
+.role-management h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: right;
+  width: 20vw;
+}
+
+
+.form-container {
+  width: 79vw;
+  margin: 5px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(90, 88, 88, 0.1);
+  border-radius: 8px;
+  min-height: 100vh;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: right;
+  width: 20vw;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-group .form-control {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.form-text {
+  margin-top: 5px;
+  font-size: 0.875rem;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.submit {
+  color: black;
+  border: 1px solid #898787;
+  cursor: pointer;
+}
+
+.cancel {
+  color: black;
+  border: 1px solid #D83520;
+  cursor: pointer;
+}
+
+.input-container {
+  width: 33.3%;
+  padding: 0 10px;
+}
+
+hr {
+  color: rgb(180, 175, 175);
+  width: 30%;
+}
+
+
+.submit:hover{
+  color: white;
+  background-color: #898787;
+}
+
+.cancel:hover{
+  color: #fff;
+  background-color: #D83520;
+}

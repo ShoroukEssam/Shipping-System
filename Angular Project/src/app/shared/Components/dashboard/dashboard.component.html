@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="header d-flex flex-row justify-content-between align-items-center p-4">
+      <div class="title">
+        <h2 class="page-title">الرئيسية</h2>
+      </div>
+      <div *ngIf="userRole === 'التجار'" class="input-group mb-3" style="width: 20vw;" dir="ltr">
+        <span class="input-group-text" id="basic-addon2">
+          <a [routerLink]="['/merchant/order', 0]" class="btn add-group-button">
+            <i class="bi bi-plus-lg"></i> أضف طلب
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="row status">
+      <div *ngFor="let statusCount of statusCounts" class="col-12 col-md-6 col-lg-3 mb-3">
+        <div class="card border-secondary h-100">
+          <div class="card-header d-flex align-items-center justify-content-center">
+            <i class="bi bi-envelope me-2"></i>
+            <span>{{ statusCount.status }}</span>
+          </div>
+          <div class="card-body text-secondary d-flex flex-column justify-content-between">
+            <h5 class="card-title mb-3">{{ statusCount.count }}</h5>
+            <button type="button" class="btn btn-outline-info mt-auto" (click)="navigateToOrders(statusCount.status)">استعلام</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

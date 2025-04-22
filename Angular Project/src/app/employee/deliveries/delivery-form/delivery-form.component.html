@@ -1,0 +1,117 @@
+<div class="role-management">
+  <h2 class="text">{{ id && id !== '0' ? 'تعديل مندوب' : 'اضافه مندوب' }}</h2>
+  <hr>
+  <div>
+    <form [formGroup]="deliveryForm" (ngSubmit)="onSubmit()">
+      <!-- First row of inputs -->
+      <div class="input-group">
+        <div class="input-container">
+          <div class="form-group">
+            <label for="name">الاسم</label>
+            <input id="name" formControlName="name" type="text" class="form-control">
+            <div *ngIf="deliveryForm?.get('name')?.touched && deliveryForm?.get('name')?.invalid" class="form-text text-danger">
+              الاسم مطلوب
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input id="email" formControlName="email" type="email" class="form-control">
+            <div *ngIf="deliveryForm?.get('email')?.touched && deliveryForm?.get('email')?.invalid" class="form-text text-danger">
+              البريد الإلكتروني مطلوب
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="form-group">
+            <label for="phone">رقم الهاتف</label>
+            <input id="phone" formControlName="phone" type="text" class="form-control">
+            <div *ngIf="deliveryForm?.get('phone')?.touched && deliveryForm?.get('phone')?.invalid" class="form-text text-danger">
+              رقم الهاتف مطلوب
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second row of inputs -->
+      <div class="input-group">
+        <div class="input-container">
+          <div class="form-group">
+            <label for="government" class="form-label">المحافظة</label>
+            <select id="government" class="form-select" formControlName="government" (change)="onStateChange($event)">
+              <option value="" selected>اختر المحافظة</option>
+              <option *ngFor="let state of states" [value]="serializeState(state)">{{ state.name }}</option>
+            </select>
+            <div *ngIf="deliveryForm.get('government')?.invalid && (deliveryForm.get('government')?.dirty || deliveryForm.get('government')?.touched)" class="text-danger">
+              <div *ngIf="deliveryForm.get('government')?.errors?.['required']">يجب ادخال المحافظة</div>
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="form-group">
+            <label for="branchId" class="form-label">الفرع</label>
+            <select id="branchId" class="form-select" formControlName="branchId">
+              <option value="" selected>اختر الفرع</option>
+              <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+            </select>
+            <div *ngIf="deliveryForm.get('branchId')?.invalid && (deliveryForm.get('branchId')?.dirty || deliveryForm.get('branchId')?.touched)" class="text-danger">
+              <div *ngIf="deliveryForm.get('branchId')?.errors?.['required']">يجب ادخال الفرع</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="form-group">
+            <label for="address">العنوان</label>
+            <input id="address" formControlName="address" type="text" class="form-control">
+            <div *ngIf="deliveryForm?.get('address')?.touched && deliveryForm?.get('address')?.invalid" class="form-text text-danger">
+              العنوان مطلوب
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third row of inputs -->
+      <div class="input-group">
+        <div class="input-container">
+          <div class="form-group">
+            <label for="discountType">نوع الخصم</label>
+            <select id="discountType" class="form-select" formControlName="discountType">
+              <option value="" selected>اختر نوع وسيلة الدفع</option>
+              <option *ngFor="let discountType  of discountTypes" [value]="discountType ">{{ discountType  }}</option>
+            </select>
+            <div *ngIf="deliveryForm?.get('discountType')?.touched && deliveryForm?.get('discountType')?.invalid" class="form-text text-danger">
+              نوع الخصم مطلوب
+            </div>
+          </div>
+        </div>
+        <div *ngIf="id && id == '0'" class="input-container">
+          <div class="form-group">
+            <label for="password">الرقم السري</label>
+            <input id="password" formControlName="password" type="password" class="form-control">
+            <div *ngIf="deliveryForm?.get('password')?.touched && deliveryForm?.get('password')?.invalid" class="form-text text-danger">
+              الرقم السري مطلوب
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="form-group">
+            <label for="companyPercentage">نسبه الشركه </label>
+            <input id="companyPercentage" formControlName="companyPercentage" type="number" class="form-control">
+            <div *ngIf="deliveryForm?.get('companyPercentage')?.touched && deliveryForm?.get('companyPercentage')?.invalid" class="form-text text-danger">
+              نسبة الشركة مطلوبة
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons section -->
+      <div class="buttons">
+        <button type="submit" class="btn submit">
+          {{ id && id !== '0' ? 'تعديل مندوب' : 'اضافه مندوب' }}</button>
+        <button type="button" class="btn cancel" (click)="navigateBack()">عودة إلى الخلف</button>
+      </div>
+    </form>
+  </div>
+</div>

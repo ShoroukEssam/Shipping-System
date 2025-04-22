@@ -1,0 +1,60 @@
+.role-management {
+    margin: 20px;
+    width: 79vw;
+    margin: 5px auto;
+  }
+  
+  .role-management h2 {
+    padding-bottom: 5px;
+    border-bottom: #000000;
+  }
+  
+  .role-management table {
+    margin: 0px 40px;
+    width: 72vw;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .role-management th, .role-management td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .role-management th {
+    background-color: #f2f2f2;
+  }
+  
+  .role-management .buttons {
+    text-align: center;
+  }
+  
+  .role-management button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+
+.submit{
+    color: black;
+    border: 1px solid #898787;
+    cursor: pointer;
+}
+
+.cancel{
+    color: black;
+    border: 1px solid #D83520;
+    cursor: pointer;
+}
+
+.submit:hover{
+  color: white;
+  background-color: #898787;
+}
+
+.cancel:hover{
+  color: #fff;
+  background-color: #D83520;
+}

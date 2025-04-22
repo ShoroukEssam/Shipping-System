@@ -1,0 +1,41 @@
+<div class="container" #reportContent>
+    <h2>
+        <button class="btn btn-secondary btn-sm" (click)="printReport()"><i class="bi bi-printer"></i></button>
+        تقرير الطلب
+    </h2>
+    <p><strong>التاريخ :</strong> {{ order.orderDate | date }}</p>
+    <p><strong>اسم العميل:</strong> {{ order.clientName }}</p>
+    <p><strong>رقم العميل:</strong> {{ order.clientPhoneNumber1 }}</p>
+    <p><strong>رقم البديل:</strong> {{ order.clientPhoneNumber2 }}</p>
+    <p><strong>المحافظة:</strong> {{ order.stateName }}</p>
+    <p><strong>المدينة:</strong> {{ order.cityName }}</p>
+    <p><strong>تكلفة الطلب:</strong> {{ order.orderCost }}</p>
+    <p><strong>تكلفة الشحن:</strong> {{ order.shippingCost }}</p>
+    <p><strong>اجمالي الطلب: </strong> {{ order.totalCost }}</p>
+    <p><strong>حالة الطلب:</strong> {{ order.orderStatus }}</p>
+    <p><strong>المندوب:</strong> {{ order.deliveryId }}</p>
+    
+    <h3>المنتجات</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>اسم المنتج</th>
+              <th>الكمية</th>
+              <th>الوزن</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of order?.orderProducts?.$values">
+              <td>{{ product?.productName }}</td>
+              <td>{{ product?.productQuantity }}</td>
+              <td>{{ product?.weight }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    
+    <button class="btn btn-secondary btn-sm" [routerLink]="['/employee/dashboard']">عودة الى الخلف</button>
+  </div>
+  
+  

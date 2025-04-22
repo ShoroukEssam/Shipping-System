@@ -1,0 +1,62 @@
+.container {
+    width: 79vw;
+    margin: 5px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+
+  }
+
+  .input-group{
+    width: 30vw;
+  }
+
+  .add-group-button {
+    background-color: #ffffff;
+  }
+
+  .record-input, .search-input {
+    width: 100px;
+    margin: 0 10px;
+    background-color: white;
+  }
+
+  table {
+    width: 100%;
+    background-color: white;
+  }
+
+  th, td {
+    padding: 16px;
+  }
+
+  .pagination {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .page-link {
+    color: black !important;
+  }
+  i{
+    cursor: pointer;
+  }
+  #pagenumber
+  {
+    width: 80px;
+    border-radius: 8px;
+    margin: 0px 5px 0px 0px;
+    padding: 0;
+    
+  }
+  .form-switch {
+    padding-left: 5rem;
+}
