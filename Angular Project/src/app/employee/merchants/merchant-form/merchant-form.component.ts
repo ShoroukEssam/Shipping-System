@@ -28,7 +28,7 @@ export class MerchantFormComponent implements OnInit {
   ) {
     this.merchantForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]],
       phone: ['', [Validators.required, Validators.pattern('^01[0-9]{9}$')]],
       password: ['', Validators.minLength(8)],
       government: ['', Validators.required],
@@ -85,8 +85,8 @@ export class MerchantFormComponent implements OnInit {
       }
     });
   }
-  
-  
+
+
 
   loadGovernments(): void {
     this.apiService.get<any>('/Government').subscribe({
@@ -213,7 +213,7 @@ export class MerchantFormComponent implements OnInit {
     const gov = this.governments.filter(gov => gov.name == state);
     return gov[0];
   }
-  
+
   trackByGov(index: number, gov: IGovernmentDTO): number|undefined {
     return gov.id; // or unique identifier for government
   }

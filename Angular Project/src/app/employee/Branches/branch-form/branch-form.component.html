@@ -14,15 +14,21 @@
           id="reg-email"
           fdprocessedid="qzw08f"
         />
+        <div *ngIf="BranchData.get('name')?.errors && BranchData.get('name')?.touched">
+          <p *ngIf="BranchData.get('name')?.getError('required')" class="text-danger">يجب إدخال اسم الفرع</p>
+          <p *ngIf="BranchData.get('name')?.getError('minlength')" class="text-danger">اسم الفرع يجب أن لا يقل عن 3 أحرف</p>
+        </div>
       </div>
       <div class="form-group w-50">
         <label for="reg-fn">المحافطه</label>
         <select class="form-control my-2" formControlName="stateId">
           المحافطه
+          <option value="0" disabled selected>اختر المحافظة</option>
           <option *ngFor="let gov of GovernmentData" [value]="gov.id">
             {{ gov.name }}
           </option>
         </select>
+
       </div>
     </div>
     <div class="buttons">

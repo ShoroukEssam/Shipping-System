@@ -14,6 +14,12 @@
           id="reg-email"
           fdprocessedid="qzw08f"
         />
+        <div *ngIf="cityData.get('roleName')?.errors && cityData.get('roleName')?.touched">
+          <p *ngIf="cityData.get('roleName')?.getError('required')" class="text-danger">يجب ادخال اسم المدينة</p>
+          <p *ngIf="cityData.get('roleName')?.getError('minlength')" class="text-danger">
+            يجب أن يكون الاسم على الأقل 3 أحرف
+          </p>
+        </div>
       </div>
       <!-- <div class="form-group w-50">
         <label for="reg-fn">المحافطه</label>
@@ -36,6 +42,9 @@
           id="reg-email"
           fdprocessedid="qzw08f"
         />
+        <div *ngIf="cityData.get('shippingPrice')?.errors && cityData.get('shippingPrice')?.touched">
+          <p *ngIf="cityData.get('shippingPrice')?.getError('required')" class="text-danger">يجب ادخال تكلفة الشحن العادي</p>
+        </div>
       </div>
       <div class="form-group w-50">
         <label for="reg-fn">تكلفه الشحن pickup </label>
@@ -47,6 +56,9 @@
           id="reg-email"
           fdprocessedid="qzw08f"
         />
+        <div *ngIf="cityData.get('pickUpPrice')?.errors && cityData.get('pickUpPrice')?.touched">
+          <p *ngIf="cityData.get('pickUpPrice')?.getError('required')" class="text-danger">يجب ادخال تكلفة الشحن بيك اب</p>
+        </div>
       </div>
     </div>
     <div class="buttons">
